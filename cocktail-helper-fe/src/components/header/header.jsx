@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Button, Navbar, Nav } from 'react-bootstrap'
+import DropdownMenu from './dropdownMenu'
+import useGetCategories from './useGetCategories'
 import styles from './header.module.css'
 
 const Header = () => {
+  const categories = useGetCategories()
+
   return (
     <Container>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -20,6 +24,7 @@ const Header = () => {
                 Contact
               </Nav.Link>
             </Nav>
+            {categories ? <DropdownMenu categories={categories} /> : null}
           </Navbar.Collapse>
         </Container>
       </Navbar>

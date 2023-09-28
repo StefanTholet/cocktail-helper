@@ -1,8 +1,8 @@
 import express from 'express'
-import filtersController from '../controllers/filtersController.mjs'
+import categoriesController from '../controllers/categoriesController.mjs'
 
 const router = express.Router()
 
-router.get('/filters', filtersController.getFiltersData)
+router.get('/categories', categoriesController.getFiltersData)
 
 export default router
