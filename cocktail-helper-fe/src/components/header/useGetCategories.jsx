@@ -9,7 +9,7 @@ const useGetCategories = () => {
       try {
         const result = await axios.get('http://localhost:3000/categories')
         if (result.data) {
-          setCategories(result.data.categories)
+          setCategories(result.data)
         }
       } catch (error) {
         console.log(error)

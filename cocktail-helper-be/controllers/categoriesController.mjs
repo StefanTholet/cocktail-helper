@@ -2,15 +2,9 @@ import { getCategories } from '../models/apiService.mjs'
 
 const getFiltersData = async (req, res) => {
   try {
-    const { categories, glasses, ingredients, alcoholic } =
-      await getCategories()
+    const result = await getCategories()
 
-    res.json({
-      categories: categories.data.drinks,
-      glasses: glasses.data.drinks,
-      ingredients: ingredients.data.drinks,
-      alcoholic: alcoholic.data.drinks
-    })
+    res.json(result)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: 'An error occurred' })
@@ -18,5 +12,5 @@ const getFiltersData = async (req, res) => {
 }
 
 export default {
-  getFiltersData
+  getFiltersData,
 }
