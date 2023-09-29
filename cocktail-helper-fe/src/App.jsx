@@ -1,10 +1,18 @@
+import { Suspense, lazy } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/layout'
-import SearchSection from './components/searchSection/searchSection'
+import { Spinner } from 'react-bootstrap'
+
+const Home = lazy(() => import('./pages/home/home'))
 
 function App() {
   return (
     <Layout>
-      <SearchSection />
+      <Suspense fallback={<Spinner />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Suspense>
     </Layout>
   )
 }
