@@ -4,6 +4,7 @@ import axios from 'axios'
 const useFetchSearch = (body) => {
   const [res, setRes] = useState(null)
   const [throttleTimeout, setThrottleTimeout] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchSearch = async () => {
     try {
@@ -15,11 +16,14 @@ const useFetchSearch = (body) => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   useEffect(() => {
     if (body?.search) {
+      setIsLoading(true)
       if (throttleTimeout) {
         clearTimeout(throttleTimeout)
       }
@@ -29,10 +33,12 @@ const useFetchSearch = (body) => {
       }, 500)
 
       setThrottleTimeout(newTimeout)
+    } else {
+      setRes(null)
     }
   }, [body])
 
-  return res
+  return [res, isLoading]
 }
 
 export default useFetchSearch

@@ -1,5 +1,7 @@
 import SearchSection from '../../components/searchSection/searchSection'
-import { Row } from 'react-bootstrap'
+import SearchResults from '../../components/searchResults/searchResults'
+import CocktailCard from '../../components/card/card'
+import { Row, Spinner } from 'react-bootstrap'
 import RadioBtn from '../../components/radioBtn/radioBtn'
 import useForm from '../../../hooks/useForm'
 import useFetchSearch from '../../../hooks/useFetchSearch'
@@ -7,8 +9,8 @@ import { SEARCH_INITIAL_STATE, RADIO_INPUTS } from './homeConstants'
 
 const Home = () => {
   const [values, onChange] = useForm(SEARCH_INITIAL_STATE)
-  const searchResults = useFetchSearch(values)
-  console.log(searchResults)
+  const [searchResults, isLoading] = useFetchSearch(values)
+
   return (
     <Row>
       <SearchSection values={values} onChange={onChange}>
@@ -27,6 +29,24 @@ const Home = () => {
           </div>
         </RadioBtn.Container>
       </SearchSection>
+
+      <SearchResults>
+        {isLoading ? (
+          <Spinner />
+        ) : searchResults && values.searchOption !== 'searchIngredient' ? (
+          searchResults.map((data) => (
+            <CocktailCard key={data.strDrink} cocktail={data} />
+          ))
+        ) : !isLoading && searchResults ? (
+          <>
+            {searchResults.map((ingredient) => (
+              <div key={ingredient.strDescription}>
+                {ingredient.strDescription}
+              </div>
+            ))}
+          </>
+        ) : null}
+      </SearchResults>
     </Row>
   )
 }

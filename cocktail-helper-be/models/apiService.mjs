@@ -25,8 +25,7 @@ export const getCategories = async () => {
 }
 
 export const getSearchResults = async (searchOption, search) => {
-  console.log(searchOption)
-  console.log(search)
   const result = await axios.get(`${SEARCH_TYPE_MAPPER[searchOption]}${search}`)
-  return result.data.drinks
+
+  return result.data.drinks || result.data.ingredients
 }

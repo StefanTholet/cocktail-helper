@@ -2,7 +2,6 @@ import { Row, Col, Form, Button, FormGroup } from 'react-bootstrap'
 import styles from './searchSection.module.css'
 
 const SearchSection = ({ values, onChange, children }) => {
-  console.log(values)
   return (
     <Row>
       <Col>
