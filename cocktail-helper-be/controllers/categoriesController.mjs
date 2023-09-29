@@ -6,26 +6,10 @@ const getFiltersData = async (req, res) => {
       await getCategories()
 
     res.json({
-      categories: [
-        {
-          item: 'categories',
-          subItems: categories.data.drinks.map((item) => Object.values(item)[0])
-        },
-        {
-          item: 'glasses',
-          subItems: glasses.data.drinks.map((item) => Object.values(item)[0])
-        },
-        {
-          item: 'ingredients',
-          subItems: ingredients.data.drinks.map(
-            (item) => Object.values(item)[0]
-          )
-        },
-        {
-          item: 'alcoholic',
-          subItems: alcoholic.data.drinks.map((item) => Object.values(item)[0])
-        }
-      ]
+      categories: categories.data.drinks,
+      glasses: glasses.data.drinks,
+      ingredients: ingredients.data.drinks,
+      alcoholic: alcoholic.data.drinks
     })
   } catch (error) {
     console.error(error)

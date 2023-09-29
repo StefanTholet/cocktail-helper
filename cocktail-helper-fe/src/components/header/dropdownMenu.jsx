@@ -5,7 +5,7 @@ const DropdownMenu = ({ categories }) => {
   console.log(categories)
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="success" id="nested-dropdown">
+      {/* <Dropdown.Toggle variant="success" id="nested-dropdown">
         Select
       </Dropdown.Toggle>
       <Dropdown.Menu>
@@ -32,7 +32,7 @@ const DropdownMenu = ({ categories }) => {
             <Dropdown.Divider />
           </Fragment>
         ))}
-      </Dropdown.Menu>
+      </Dropdown.Menu> */}
     </Dropdown>
   )
 }
