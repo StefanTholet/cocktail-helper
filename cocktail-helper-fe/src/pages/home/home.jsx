@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <Row>
       <SearchSection values={values} onChange={onChange}>
-        <RadioBtn.Container>
+        <RadioBtn.Container classes="mt-2">
           <div className="d-flex">
             {RADIO_INPUTS.map((radio) => (
               <RadioBtn

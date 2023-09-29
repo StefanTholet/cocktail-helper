@@ -1,4 +1,4 @@
-import { Row, Col, Form, Button, FormGroup } from 'react-bootstrap'
+import { Row, Col, Form, FormGroup } from 'react-bootstrap'
 import styles from './searchSection.module.css'
 
 const SearchSection = ({ values, onChange, children }) => {
@@ -16,9 +16,6 @@ const SearchSection = ({ values, onChange, children }) => {
               value={values.search}
               onChange={onChange}
             />
-            <Button variant="primary" type="submit">
-              Search
-            </Button>
           </FormGroup>
           {children}
           {/* <FormGroup>

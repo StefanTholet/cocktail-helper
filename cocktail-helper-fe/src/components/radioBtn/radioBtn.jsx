@@ -14,7 +14,11 @@ const RadioBtn = ({ onChange, name, value, checked, label }) => {
   )
 }
 
-const RadioContainer = ({ children }) => <Form.Group>{children} </Form.Group>
+const RadioContainer = ({ children, classes, rest }) => (
+  <Form.Group className={classes ? classes : ''} {...rest}>
+    {children}{' '}
+  </Form.Group>
+)
 
 RadioBtn.Container = RadioContainer
 
