@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react'
-//Generic Form Values Management Hook
+
+// Generic Form Values Management Hook
 const useForm = (initialState) => {
-  //use provided inputs as initial state or set empty object as state
+  // Use provided inputs as initial state or set an empty object as state
   const [values, setValues] = useState(initialState ? initialState : {})
   const [disableSubmit, setDisableSubmit] = useState(true)
-  //errros
+  // Errors
   const [errors, setErrors] = useState([])
 
-  //onChange handler for form inputs
+  // onChange handler for form inputs
   const onChange = (e) => {
     if (e) {
-      e.preventDefault()
+      const target = e.target
+      target.type !== 'radio' && e.preventDefault()
+
       setErrors([])
-      const fieldName = e.target.name
-      const fieldValue = e.target.value
+
+      const fieldName = target.name
+      const fieldValue = target.value
 
       setValues((state) => {
         const updatedValues = { ...state, [fieldName]: fieldValue }

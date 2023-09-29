@@ -1,6 +1,6 @@
 import { getCategories } from '../models/apiService.mjs'
 
-const getFiltersData = async (req, res) => {
+const getCategoriesData = async (req, res) => {
   try {
     const result = await getCategories()
 
@@ -12,5 +12,5 @@ const getFiltersData = async (req, res) => {
 }
 
 export default {
-  getFiltersData,
+  getCategoriesData,
 }

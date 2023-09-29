@@ -5,6 +5,7 @@ import {
   GLASSES_LIST,
   INGREDIENTS_LIST,
   ALCOHOLIC_FILTERS_LIST,
+  SEARCH_TYPE_MAPPER,
 } from '../constants/api.mjs'
 
 export const getCategories = async () => {
@@ -21,4 +22,11 @@ export const getCategories = async () => {
     transformCategory('Ingredients', ingredients.data.drinks),
     transformCategory('Alcoholic', alcoholic.data.drinks),
   ]
+}
+
+export const getSearchResults = async (searchOption, search) => {
+  console.log(searchOption)
+  console.log(search)
+  const result = await axios.get(`${SEARCH_TYPE_MAPPER[searchOption]}${search}`)
+  return result.data.drinks
 }
