@@ -1,7 +1,7 @@
 import { Row, Col, Form, Button, FormGroup } from 'react-bootstrap'
 import styles from './searchSection.module.css'
 
-const SearchSection = ({ values, onChange }) => {
+const SearchSection = ({ values, onChange, children }) => {
   console.log(values)
   return (
     <Row>
@@ -21,7 +21,8 @@ const SearchSection = ({ values, onChange }) => {
               Search
             </Button>
           </FormGroup>
-          <FormGroup>
+          {children}
+          {/* <FormGroup>
             <div className="d-flex">
               <Form.Check
                 inline
@@ -54,7 +55,7 @@ const SearchSection = ({ values, onChange }) => {
                 onChange={onChange}
               />
             </div>
-          </FormGroup>
+          </FormGroup> */}
         </Form>
       </Col>
     </Row>
