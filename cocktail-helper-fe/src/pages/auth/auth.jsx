@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom'
+import useAuth from './useAuth'
 import Form from '../../components/form/form'
 import useForm from '../../../hooks/useForm'
 import { LOGIN_INPUTS, FORM_INITIAL_STATE, TITLE_MAPPER } from './authConstants'
@@ -9,9 +10,11 @@ const Auth = () => {
   const location = useLocation().pathname.split('/')[1]
   const [values, onChange, disableSubmit] = useForm(FORM_INITIAL_STATE)
 
+  const handleSubmit = useAuth(location)
+
   return (
     <>
-      <Form className={styles.form}>
+      <Form className={styles.form} values={values} handleSubmit={handleSubmit}>
         <Form.Title title={TITLE_MAPPER[location]} />
         {LOGIN_INPUTS.map((input) => (
           <Form.Input

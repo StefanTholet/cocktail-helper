@@ -1,8 +1,8 @@
 import { Form as BSForm, Button } from 'react-bootstrap'
 
-const Form = ({ handleSubmit, errors = [], children, ...rest }) => {
+const Form = ({ handleSubmit, values, errors = [], children, ...rest }) => {
   return (
-    <BSForm onSubmit={handleSubmit} {...rest}>
+    <BSForm onSubmit={(e) => handleSubmit(e, values)} {...rest}>
       {errors.length > 0 && (
         <div className="alert alert-danger">
           {errors.map((error, index) => (

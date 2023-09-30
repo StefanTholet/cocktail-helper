@@ -1,4 +1,4 @@
-import { getSearchResults } from '../models/apiService.mjs'
+import { getSearchResults } from '../services/apiService.mjs'
 
 const getSearchData = async (req, res) => {
   try {
@@ -13,5 +13,5 @@ const getSearchData = async (req, res) => {
 }
 
 export default {
-  getSearchData,
+  getSearchData
 }

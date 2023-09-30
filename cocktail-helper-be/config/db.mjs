@@ -4,7 +4,7 @@ let db
 
 export const initDb = async (connectionString) => {
   const client = await MongoClient.connect(connectionString)
-  db = client.db()
+  db = client.db('cocktails')
   return db
 }
 

@@ -1,4 +1,4 @@
-import { getCategories } from '../models/apiService.mjs'
+import { getCategories } from '../services/apiService.mjs'
 
 const getCategoriesData = async (req, res) => {
   try {
@@ -12,5 +12,5 @@ const getCategoriesData = async (req, res) => {
 }
 
 export default {
-  getCategoriesData,
+  getCategoriesData
 }

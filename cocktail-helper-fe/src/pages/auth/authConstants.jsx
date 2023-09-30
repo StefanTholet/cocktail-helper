@@ -15,3 +15,8 @@ export const TITLE_MAPPER = {
   login: LOGIN_TITLE,
   'sign-up': SIGN_UP_TITLE
 }
+
+export const FORM_SUBMIT_MAPPER = {
+  login: '/login',
+  'sign-up': '/signup'
+}
