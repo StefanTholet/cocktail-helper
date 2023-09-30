@@ -4,6 +4,7 @@ import Layout from './components/layout/layout'
 import { Spinner } from 'react-bootstrap'
 
 const Home = lazy(() => import('./pages/home/home'))
+const Login = lazy(() => import('./pages/login/login'))
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Suspense>
     </Layout>
