@@ -1,16 +1,18 @@
+import { useLocation } from 'react-router-dom'
 import Form from '../../components/form/form'
 import useForm from '../../../hooks/useForm'
-import { LOGIN_INPUTS, FORM_INITIAL_STATE } from './loginConstants'
+import { LOGIN_INPUTS, FORM_INITIAL_STATE, TITLE_MAPPER } from './authConstants'
 
-import styles from './login.module.css'
+import styles from './auth.module.css'
 
-const Login = () => {
+const Auth = () => {
+  const location = useLocation().pathname.split('/')[1]
   const [values, onChange, disableSubmit] = useForm(FORM_INITIAL_STATE)
 
   return (
     <>
       <Form className={styles.form}>
-        <Form.Title title={'Login'} />
+        <Form.Title title={TITLE_MAPPER[location]} />
         {LOGIN_INPUTS.map((input) => (
           <Form.Input
             key={input.name}
@@ -22,7 +24,7 @@ const Login = () => {
           />
         ))}
         <Form.Submit
-          name="Register"
+          name={TITLE_MAPPER[location]}
           className="mt-4"
           disabled={disableSubmit}
         />
@@ -31,4 +33,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Auth
