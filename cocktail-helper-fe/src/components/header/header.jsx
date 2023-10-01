@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Button, Navbar, Nav } from 'react-bootstrap'
 import DropdownMenu from '../dropdownMenu/dropdownMenu'
-import useGetCategories from './useGetCategories'
+import useGetCategories from '../../hooks/useGetCategories'
+import useAuthContext from '../../hooks/useAuthContext'
+import useLogout from '../../hooks/useLogout'
 import styles from './header.module.css'
 
 const Header = () => {
   const categories = useGetCategories()
-
+  const { user } = useAuthContext()
+  const logout = useLogout()
   return (
     <Container>
       <Navbar bg="dark" variant="dark" expand="lg">
@@ -16,15 +19,32 @@ const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+            {categories ? <DropdownMenu items={categories} /> : null}
+            <Nav className="w-100">
               <Nav.Link as={Link} to="/">
                 About
               </Nav.Link>
               <Nav.Link as={Link} to="/">
                 Contact
               </Nav.Link>
+              {user ? (
+                <>
+                  <span className="text-white-50 ms-auto align-self-center">
+                    {user.email}
+                  </span>
+                  <Nav.Link onClick={logout}>Logout</Nav.Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link className="ms-auto" as={Link} to="/login">
+                    Login
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/sign-up">
+                    Sign Up
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
-            {categories ? <DropdownMenu items={categories} /> : null}
           </Navbar.Collapse>
         </Container>
       </Navbar>

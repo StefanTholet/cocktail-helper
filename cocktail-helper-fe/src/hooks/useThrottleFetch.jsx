@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const useFetchSearch = (body) => {
+const useFetchSearch = (body, url) => {
   const [res, setRes] = useState(null)
   const [throttleTimeout, setThrottleTimeout] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const fetchSearch = async () => {
     try {
-      const result = await axios.get('http://localhost:3000/search', {
-        params: body,
+      const result = await axios.get(url, {
+        params: body
       })
-      if (result.data) {
-        setRes(result.data)
+      if (!result.data) {
+        setRes(null)
+        return
       }
+
+      setRes(result.data)
     } catch (error) {
       console.log(error)
     } finally {

@@ -1,7 +1,8 @@
 import { useLocation } from 'react-router-dom'
-import useAuth from './useAuth'
+import Alert from 'react-bootstrap/Alert'
+import useAuth from '../../hooks/useAuth'
 import Form from '../../components/form/form'
-import useForm from '../../../hooks/useForm'
+import useForm from '../../hooks/useForm'
 import { LOGIN_INPUTS, FORM_INITIAL_STATE, TITLE_MAPPER } from './authConstants'
 
 import styles from './auth.module.css'
@@ -10,7 +11,7 @@ const Auth = () => {
   const location = useLocation().pathname.split('/')[1]
   const [values, onChange, disableSubmit] = useForm(FORM_INITIAL_STATE)
 
-  const handleSubmit = useAuth(location)
+  const [handleSubmit, error] = useAuth(location)
 
   return (
     <>
@@ -31,6 +32,11 @@ const Auth = () => {
           className="mt-4"
           disabled={disableSubmit}
         />
+        {error && (
+          <Alert variant="danger" className="mt-3">
+            {error?.response?.data?.message || error}
+          </Alert>
+        )}
       </Form>
     </>
   )

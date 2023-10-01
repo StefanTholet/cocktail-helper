@@ -9,7 +9,7 @@ const DropdownMenu = ({ items }) => {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         {items
-          ? items.map((item) => <MenuItem key={item} item={item} />)
+          ? items.map((item, i) => <MenuItem key={item.name + i} item={item} />)
           : null}
       </Dropdown.Menu>
     </Dropdown>

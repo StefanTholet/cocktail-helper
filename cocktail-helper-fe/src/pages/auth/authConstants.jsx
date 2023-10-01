@@ -20,3 +20,8 @@ export const FORM_SUBMIT_MAPPER = {
   login: '/login',
   'sign-up': '/signup'
 }
+
+export const DISPATCH_MAPPER = {
+  login: 'LOGIN',
+  'sign-up': 'SIGNUP'
+}

@@ -7,5 +7,5 @@ export const getUser = async (email) => {
 
 export const createUser = async (email, password) => {
   const user = await getDb().collection('users').insertOne({ email, password })
-  return user
+  return user?.insertedId.toString()
 }

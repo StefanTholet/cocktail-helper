@@ -4,7 +4,9 @@ const getSearchData = async (req, res) => {
   try {
     const { search, searchOption } = req.query
     const result = await getSearchResults(searchOption, search)
-    // console.log(result)
+    if (!result) {
+      res.status(204)
+    }
     res.json(result)
   } catch (error) {
     // console.error(error)
