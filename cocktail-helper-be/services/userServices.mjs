@@ -1,8 +1,18 @@
 import { getDb } from '../config/db.mjs'
+import { getCocktailById } from './apiService.mjs'
 
 export const getUser = async (email) => {
-  const user = await getDb().collection('users').findOne({ email })
-  return user
+  try {
+    const user = await getDb().collection('users').findOne({ email })
+    if (user && user.favorites) {
+      const { favorites } = user
+      let favoriteCocktails = favorites.map((id) => getCocktailById(id))
+      favoriteCocktails = await Promise.all(favoriteCocktails)
+      user.favoriteCocktails = favoriteCocktails.map((x) => x.data.drinks)
+    }
+
+    return user
+  } catch (error) {}
 }
 
 export const createUser = async (email, password) => {

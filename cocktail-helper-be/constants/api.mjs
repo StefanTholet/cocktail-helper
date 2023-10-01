@@ -13,5 +13,7 @@ const SEARCH_INGREDIENT = 'search.php?i='
 export const SEARCH_TYPE_MAPPER = {
   name: BASE_URL + SEARCH_BY_NAME,
   ingredient: BASE_URL + SEARCH_BY_INGREDIENT,
-  searchIngredient: BASE_URL + SEARCH_INGREDIENT,
+  searchIngredient: BASE_URL + SEARCH_INGREDIENT
 }
+
+export const GET_COCKTAIL_BY_ID = BASE_URL + 'lookup.php?i='
