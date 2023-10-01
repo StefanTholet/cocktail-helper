@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { getUser, createUser } from '../services/userServices.mjs'
+import userService from '../services/userServices.mjs'
 import { secret } from '../secret.mjs'
 
 const createToken = (_id) => {
@@ -17,7 +17,7 @@ export const login = async (req, res) => {
         .json({ message: 'All fields are required', isError: true })
       return
     }
-    const user = await getUser(email)
+    const user = await userService.getUser(email)
     const match = user && (await bcrypt.compare(password, user.password))
 
     if (!user || !match) {
@@ -44,7 +44,7 @@ export const signup = async (req, res) => {
         .json({ message: 'All fields are required', isError: true })
       return
     }
-    const exists = await getUser(email)
+    const exists = await userService.getUser(email)
     if (exists) {
       res.status(401).json({ message: 'Email already in use' })
       return
@@ -53,11 +53,52 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const userId = await createUser(email, hash)
+    const userId = await userService.createUser(email, hash)
     const token = createToken(userId)
 
     res.status(200).json({ email, token })
   } catch (error) {
     res.status(400).json({ error: error.message })
+  }
+}
+
+export const getUser = async (req, res) => {
+  try {
+    const { email } = req.query
+    if (!email) {
+      res.status(401).json({ message: 'Authentication required' })
+    }
+    const user = await userService.getUser(email)
+    res.json({ ...user })
+  } catch (error) {
+    res.status(500)
+  }
+}
+
+export const addFavorite = async (req, res) => {
+  try {
+    const { email, cocktailId } = req.body
+    if (!email || !cocktailId) {
+      res.status(400).json({ message: 'Email and cocktailId are required' })
+    }
+    const user = await userService.addFavorite(email, cocktailId)
+
+    res.json({ ...user })
+  } catch (error) {
+    res.status(500)
+  }
+}
+
+export const removeFavorite = async (req, res) => {
+  try {
+    const { email, cocktailId } = req.body
+    if (!email || !cocktailId) {
+      res.status(400).json({ message: 'Email and cocktailId are required' })
+    }
+    const user = await userService.removeFavorite(email, cocktailId)
+
+    res.json({ ...user })
+  } catch (error) {
+    res.status(500)
   }
 }

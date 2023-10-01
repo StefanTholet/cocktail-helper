@@ -18,8 +18,8 @@ const PORT = 3000
 
 initDb(uri)
 
-app.use(apiRouter)
-app.use(userRouter)
+app.use('/api', apiRouter)
+app.use('/user', userRouter)
 
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`)

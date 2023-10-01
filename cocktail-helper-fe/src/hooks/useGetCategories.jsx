@@ -7,7 +7,7 @@ const useGetCategories = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:3000/categories')
+        const result = await axios.get('http://localhost:3000/api/categories')
         if (result.data) {
           setCategories(result.data)
         }
