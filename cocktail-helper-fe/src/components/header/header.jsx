@@ -21,12 +21,11 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             {categories ? <DropdownMenu items={categories} /> : null}
             <Nav className="w-100">
-              <Nav.Link as={Link} to="/">
-                About
-              </Nav.Link>
-              <Nav.Link as={Link} to="/">
-                Contact
-              </Nav.Link>
+              {user ? (
+                <Nav.Link as={Link} to="/dashboard">
+                  My Dashboard
+                </Nav.Link>
+              ) : null}
               {user ? (
                 <>
                   <span className="text-white-50 ms-auto align-self-center">
