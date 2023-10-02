@@ -18,40 +18,6 @@ const SearchSection = ({ values, onChange, children }) => {
             />
           </FormGroup>
           {children}
-          {/* <FormGroup>
-            <div className="d-flex">
-              <Form.Check
-                inline
-                label="Search by name"
-                type="radio"
-                id="searchByName"
-                name="searchOption"
-                value="name"
-                checked={values.searchOption === 'name'}
-                onChange={onChange}
-              />
-              <Form.Check
-                inline
-                label="Search by ingredient"
-                type="radio"
-                id="searchByIngredient"
-                name="searchOption"
-                value="ingredient"
-                checked={values.searchOption === 'ingredient'}
-                onChange={onChange}
-              />
-              <Form.Check
-                inline
-                label="Search ingredient"
-                type="radio"
-                id="searchIngredient"
-                name="searchOption"
-                value="searchIngredient"
-                checked={values.searchOption === 'searchIngredient'}
-                onChange={onChange}
-              />
-            </div>
-          </FormGroup> */}
         </Form>
       </Col>
     </Row>

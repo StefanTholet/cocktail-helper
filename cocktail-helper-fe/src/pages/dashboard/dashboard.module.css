@@ -1,0 +1,12 @@
+.form {
+  max-width: 40rem;
+  margin-top: 3rem;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
