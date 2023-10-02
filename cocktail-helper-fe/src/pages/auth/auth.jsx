@@ -9,7 +9,7 @@ import styles from './auth.module.css'
 
 const Auth = () => {
   const location = useLocation().pathname.split('/')[1]
-  const [values, onChange, disableSubmit] = useForm(FORM_INITIAL_STATE)
+  const { values, onChange, disableSubmit } = useForm(FORM_INITIAL_STATE)
 
   const [handleSubmit, error] = useAuth(location)
 

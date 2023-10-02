@@ -10,7 +10,9 @@ const Dashboard = lazy(() => import('./pages/dashboard/dashboard'))
 function App() {
   return (
     <Layout>
-      <Suspense fallback={<Spinner />}>
+      <Suspense
+        fallback={<Spinner style={{ position: 'absolute', left: '50%' }} />}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />

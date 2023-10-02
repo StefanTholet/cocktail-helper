@@ -31,7 +31,7 @@ const useForm = (initialState) => {
     setDisableSubmit(noEmptyFields)
   }, [values])
 
-  return [values, onChange, disableSubmit, errors, setErrors]
+  return { values, onChange, disableSubmit, setValues, errors, setErrors }
 }
 
 export default useForm

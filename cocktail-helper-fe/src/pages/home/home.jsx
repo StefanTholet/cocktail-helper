@@ -7,11 +7,11 @@ import RadioBtn from '../../components/radioBtn/radioBtn'
 import useForm from '../../hooks/useForm'
 import useThrottleFetch from '../../hooks/useThrottleFetch'
 import useAuthContext from '../../hooks/useAuthContext'
-import useManageFavorites from '../../hooks/useAddToFavorites'
+import useManageFavorites from '../../hooks/useManageFavorites'
 import { SEARCH_INITIAL_STATE, RADIO_INPUTS } from './homeConstants'
 
 const Home = () => {
-  const [values, onChange] = useForm(SEARCH_INITIAL_STATE)
+  const { values, onChange } = useForm(SEARCH_INITIAL_STATE)
   const { user } = useAuthContext()
   const [searchResults, isLoading] = useThrottleFetch(
     values,
