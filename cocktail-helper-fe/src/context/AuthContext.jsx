@@ -4,34 +4,22 @@ import axios from 'axios'
 export const AuthContext = createContext()
 
 export const authReducer = (state, action) => {
-  console.log(action.payload)
   switch (action.type) {
     case 'LOGIN':
     case 'UPDATE_USER':
-      return { user: { ...state, ...action.payload } }
+      return { user: { ...state.user, ...action.payload } }
     case 'LOGOUT':
       return { user: null }
-    // case 'ADD_FAVORITE':
-    //   return {
-    //     ...state,
-    //     user: {
-    //       ...state.user,
-    //       favorites: [...(state.user.favorites || []), action.payload],
-    //     },
-    //   }
-    // case 'REMOVE_FAVORITE':
-    //   return {
-    //     ...state,
-    //     user: {
-    //       ...state.user,
-    //       favorites: [...action.payload.favorites],
-    //       favoriteCocktails: [
-    //         ...(action.payload.favorites.filter((x) =>
-    //           state.user.favoriteCocktails.includes(x)
-    //         ) || []),
-    //       ],
-    //     },
-    //   }
+    case 'ADD_COCKTAIL':
+      return {
+        user: {
+          ...state,
+          user: {
+            ...state.user,
+            cocktails: [...(state.cocktails || []), action.payload],
+          },
+        },
+      }
     default:
       return state
   }

@@ -4,6 +4,7 @@ import { initDb } from './config/db.mjs'
 import { uri } from './secret.mjs'
 import apiRouter from './routes/apiRoutes.mjs'
 import userRouter from './routes/userRoutes.mjs'
+import cocktailsRouter from './routes/cocktailRoutes.mjs'
 
 const app = express()
 
@@ -20,6 +21,7 @@ initDb(uri)
 
 app.use('/api', apiRouter)
 app.use('/user', userRouter)
+app.use('/cocktails', cocktailsRouter)
 
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`)

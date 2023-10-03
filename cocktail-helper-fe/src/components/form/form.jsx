@@ -18,7 +18,7 @@ const Form = ({ handleSubmit, values, errors = [], children, ...rest }) => {
 const Title = ({ title, ...rest }) => <h2 {...rest}>{title}</h2>
 
 const Input = ({ handleChange, name, label, type, value, ...rest }) => (
-  <BSForm.Group controlId={name}>
+  <BSForm.Group controlId={name} className="mt-2">
     <BSForm.Label>{label}</BSForm.Label>
     <BSForm.Control
       {...rest}

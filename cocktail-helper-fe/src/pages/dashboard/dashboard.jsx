@@ -1,38 +1,29 @@
-import { useState, useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Row, Col, Button } from 'react-bootstrap'
 import Toggler from '../../components/toggler/toggler'
 import CocktailCard from '../../components/cocktailCard/cocktailCard'
 import SearchResults from '../../components/searchResults/searchResults'
 import Form from '../../components/form/form'
-import useAuthContext from '../../hooks/useAuthContext'
-import useAddCocktail from '../../hooks/useAddCocktail'
-import useManageFavorites from '../../hooks/useManageFavorites'
-
-import {
-  FORM_DEFAULT_INPUTS,
-  FORM_INITIAL_STATE,
-  INGREDIENT_INPUTS_INITIAL_STATE,
-} from './dashboardConstants'
+import useDashboard from '../../hooks/useDashboard'
+import { FORM_DEFAULT_INPUTS } from './dashboardConstants'
 
 import styles from './dashboard.module.css'
 
 const Dashboard = () => {
-  const [showForm, setShowForm] = useState(false)
-  const { user } = useAuthContext()
-  const { values, onChange, onAdd, onRemove, ingredientInputs } =
-    useAddCocktail(FORM_INITIAL_STATE, INGREDIENT_INPUTS_INITIAL_STATE, user)
-
-  const manageFavorites = useManageFavorites()
-
-  const favoriteCocktails = useMemo(
-    () =>
-      user?.favoriteCocktails?.map((x) => {
-        x.isFavorite = true
-        return x
-      }),
-    [user?.favoriteCocktails]
-  )
+  const {
+    showForm,
+    setShowForm,
+    values,
+    onChange,
+    onAdd,
+    onRemove,
+    ingredientInputs,
+    submit,
+    manageFavorites,
+    favoriteCocktails,
+    userCocktails,
+    user,
+  } = useDashboard()
 
   return (
     <Row>
@@ -44,7 +35,7 @@ const Dashboard = () => {
         <Form
           className={`${styles.form} ${showForm ? styles.show : styles.hide}`}
           values={values}
-          // handleSubmit={handleSubmit}
+          handleSubmit={submit}
         >
           <Form.Title title={'Add your cocktail'} />
           {FORM_DEFAULT_INPUTS.map((input) => (
@@ -76,6 +67,15 @@ const Dashboard = () => {
           ))}
           <Form.Submit name="Submit" className="mt-4" />
         </Form>
+        {userCocktails && userCocktails.length > 0 ? (
+          <SearchResults title="Your cocktails">
+            {userCocktails.map((data) => (
+              <CocktailCard key={uuidv4()} data={data} user={user} />
+            ))}
+          </SearchResults>
+        ) : (
+          <SearchResults title="Add some cocktails!" />
+        )}
         {favoriteCocktails ? (
           <SearchResults title="Your favorites">
             {favoriteCocktails.map((data) => (

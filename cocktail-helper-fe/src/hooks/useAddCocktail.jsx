@@ -1,8 +1,14 @@
 import { useState } from 'react'
+import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import useForm from './useForm'
 
-const useAddCocktail = (formInitialState, ingredientsInitialState) => {
+const useAddCocktail = (
+  formInitialState,
+  ingredientsInitialState,
+  user,
+  dispatch
+) => {
   const [ingredientInputs, setIngredientInputs] = useState(
     ingredientsInitialState
   )
@@ -35,7 +41,43 @@ const useAddCocktail = (formInitialState, ingredientsInitialState) => {
       return filteredState
     })
   }
-  return { ingredientInputs, values, onChange, onAdd, onRemove }
+
+  const reset = () => {
+    setIngredientInputs(ingredientsInitialState)
+    setValues(formInitialState)
+  }
+
+  const submit = async (e) => {
+    e.preventDefault()
+    const formValues = { ...values }
+    let ingredientNum = 1
+
+    //convert ingredients data to match the cocktails api format
+    for (const key in values) {
+      if (key.includes('strIngredient')) {
+        const value = formValues[key]
+        delete formValues[key]
+
+        if (value === '') continue
+
+        const newKey = key.split('-')[0] + ingredientNum
+        formValues[newKey] = value
+        ingredientNum++
+      }
+    }
+
+    const result = await axios.post('http://localhost:3000/cocktails/add', {
+      ...formValues,
+      email: user.email,
+    })
+
+    if (result.data) {
+      dispatch({ type: 'UPDATE_USER', payload: result.data })
+      reset()
+    }
+  }
+
+  return { ingredientInputs, values, onChange, onAdd, onRemove, submit }
 }
 
 export default useAddCocktail

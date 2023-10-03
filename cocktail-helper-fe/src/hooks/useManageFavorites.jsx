@@ -15,7 +15,6 @@ const useManageFavorites = () => {
         cocktailId,
       })
       if (result.status === 200) {
-        console.log(result.data)
         dispatch({ type: 'UPDATE_USER', payload: result.data })
       }
     } catch (error) {

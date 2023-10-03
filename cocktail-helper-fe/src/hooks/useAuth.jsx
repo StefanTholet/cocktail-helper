@@ -14,6 +14,7 @@ const useAuth = (location) => {
     try {
       setError(null)
       e.preventDefault()
+
       const result = await axios.post(
         `http://localhost:3000/user/${FORM_SUBMIT_MAPPER[location]}`,
         body

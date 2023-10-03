@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import userService from '../services/userServices.mjs'
+import cocktailServices from '../services/cocktailServices.mjs'
 import { secret } from '../secret.mjs'
 
 const createToken = (_id) => {
@@ -30,9 +31,7 @@ export const login = async (req, res) => {
     delete user.password
 
     res.json({ ...user, token })
-  } catch (error) {
-    console.log(error)
-  }
+  } catch (error) {}
 }
 
 export const signup = async (req, res) => {
@@ -69,10 +68,8 @@ export const getUser = async (req, res) => {
       res.status(401).json({ message: 'Authentication required' })
     }
     const user = await userService.getUser(email)
-    const favoriteCocktails = await userService.getFavoriteCocktails(
-      user.favorites
-    )
-    user.favoriteCocktails = favoriteCocktails || []
+
+    delete user.password
 
     res.json({ ...user })
   } catch (error) {
@@ -110,6 +107,25 @@ export const removeFavorite = async (req, res) => {
     user.favoriteCocktails = favoriteCocktails || []
     res.json({ ...user })
   } catch (error) {
+    res.status(500)
+  }
+}
+
+export const dashboard = async (req, res) => {
+  try {
+    const { email } = req.query
+
+    const user = await userService.getUser(email)
+    const favoriteCocktails = await userService.getFavoriteCocktails(
+      user.favorites
+    )
+    const userCocktails = await cocktailServices.getUserCocktails(email)
+
+    user.favoriteCocktails = favoriteCocktails || []
+
+    res.json({ userCocktails })
+  } catch (error) {
+    console.log(error)
     res.status(500)
   }
 }

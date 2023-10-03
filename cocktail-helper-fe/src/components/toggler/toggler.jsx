@@ -17,7 +17,7 @@ const Toggler = ({ onAdd, onRemove, classes, children }) => {
       <Button
         onClick={onClick}
         className={styles.toggle}
-        style={{ marginTop: show ? '1.9rem' : null }}
+        style={{ marginTop: show ? '2.4rem' : null }}
       >
         {show ? 'Remove' : 'Add'}
       </Button>
