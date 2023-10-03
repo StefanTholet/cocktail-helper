@@ -1,34 +1,22 @@
-import { useMemo } from 'react'
 import SearchSection from '../../components/searchSection/searchSection'
 import SearchResults from '../../components/searchResults/searchResults'
 import CocktailCard from '../../components/cocktailCard/cocktailCard'
 import Ingredient from '../../components/ingredient/ingredient'
 import { Row, Spinner } from 'react-bootstrap'
 import RadioBtn from '../../components/radioBtn/radioBtn'
-import useForm from '../../hooks/useForm'
-import useThrottleFetch from '../../hooks/useThrottleFetch'
-import useAuthContext from '../../hooks/useAuthContext'
-import useManageFavorites from '../../hooks/useManageFavorites'
-import { addIsFavoriteProp } from '../../utils/favoritesUtils'
-import {
-  SEARCH_INITIAL_STATE,
-  RADIO_INPUTS,
-  SEARCH_SECTION_TITLES_MAPPER,
-} from './homeConstants'
+import useHome from './useHome'
+
+import { RADIO_INPUTS, SEARCH_SECTION_TITLES_MAPPER } from './homeConstants'
 
 const Home = () => {
-  const { values, onChange } = useForm(SEARCH_INITIAL_STATE)
-  const { user } = useAuthContext()
-  let [searchResults, isLoading] = useThrottleFetch(
+  const {
+    user,
     values,
-    'http://localhost:3000/api/search'
-  )
-  const manageFavorites = useManageFavorites()
-
-  const modifiedResults = useMemo(
-    () => addIsFavoriteProp(searchResults, user.favorites),
-    [searchResults, user.favorites]
-  )
+    onChange,
+    isLoading,
+    manageFavorites,
+    modifiedResults,
+  } = useHome()
 
   return (
     <Row>

@@ -5,7 +5,11 @@ export const FORM_INITIAL_STATE = {
 
 export const FORM_DEFAULT_INPUTS = [
   { name: 'strDrink', label: 'Cocktail name', value: 'strDrink' },
-  { name: 'strDrinkThumb', label: 'Cocktail image', value: 'strDrinkThumb' },
+  {
+    name: 'strDrinkThumb',
+    label: 'Cocktail image url',
+    value: 'strDrinkThumb',
+  },
 ]
 
 export const INGREDIENT_INPUTS_INITIAL_STATE = [

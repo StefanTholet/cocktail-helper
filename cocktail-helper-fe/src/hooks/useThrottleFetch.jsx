@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
+import useLoader from './useLoader'
 import axios from 'axios'
 
 const useFetchSearch = (body, url) => {
   const [res, setRes] = useState(null)
   const [throttleTimeout, setThrottleTimeout] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const { isLoading, setIsLoading, Spinner } = useLoader(false)
 
   const fetchSearch = async () => {
     try {
       const result = await axios.get(url, {
-        params: body
+        params: body,
       })
       if (!result.data) {
         setRes(null)
@@ -41,7 +42,7 @@ const useFetchSearch = (body, url) => {
     }
   }, [body])
 
-  return [res, isLoading]
+  return [res, isLoading, Spinner]
 }
 
 export default useFetchSearch

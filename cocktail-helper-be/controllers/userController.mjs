@@ -120,10 +120,7 @@ export const dashboard = async (req, res) => {
       user.favorites
     )
     const userCocktails = await cocktailServices.getUserCocktails(email)
-
-    user.favoriteCocktails = favoriteCocktails || []
-
-    res.json({ userCocktails })
+    res.json({ userCocktails, favoriteCocktails })
   } catch (error) {
     console.log(error)
     res.status(500)

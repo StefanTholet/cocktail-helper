@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/layout'
+import WithRouteGuard from './hoc/WithRouteGuard'
 import { Spinner } from 'react-bootstrap'
 
 const Home = lazy(() => import('./pages/home/home'))
@@ -15,7 +16,14 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <WithRouteGuard>
+                <Dashboard />
+              </WithRouteGuard>
+            }
+          />
           <Route path="/login" element={<Auth />} />
           <Route path="/sign-up" element={<Auth />} />
         </Routes>

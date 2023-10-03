@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import Alert from 'react-bootstrap/Alert'
-import useAuth from '../../hooks/useAuth'
+import useAuth from './useAuth'
 import Form from '../../components/form/form'
 import useForm from '../../hooks/useForm'
 import { LOGIN_INPUTS, FORM_INITIAL_STATE, TITLE_MAPPER } from './authConstants'

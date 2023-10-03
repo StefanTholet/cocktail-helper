@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios'
-import { FORM_SUBMIT_MAPPER } from '../pages/auth/authConstants'
+import { FORM_SUBMIT_MAPPER } from './authConstants'
 
 const useAuth = (location) => {
   const [error, setError] = useState(null)

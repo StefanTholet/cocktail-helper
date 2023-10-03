@@ -1,14 +1,16 @@
 import { useState, useEffect, useMemo } from 'react'
-import useAuthContext from './useAuthContext'
-import useAddCocktail from './useAddCocktail'
-import useManageFavorites from './useManageFavorites'
+import useAuthContext from '../../hooks/useAuthContext'
+import useAddCocktail from '../../hooks/useAddCocktail'
+import useManageFavorites from '../../hooks/useManageFavorites'
+import useLoader from '../../hooks/useLoader'
 import {
   FORM_INITIAL_STATE,
   INGREDIENT_INPUTS_INITIAL_STATE,
-} from '../pages/dashboard/dashboardConstants'
+} from './dashboardConstants'
 import axios from 'axios'
 
 const useDashboard = () => {
+  const { isLoading, setIsLoading, Spinner } = useLoader()
   const [showForm, setShowForm] = useState(false)
   const { user, dispatch } = useAuthContext()
   const { values, onChange, onAdd, onRemove, ingredientInputs, submit } =
@@ -32,14 +34,26 @@ const useDashboard = () => {
 
   useEffect(() => {
     const fetchUserDashboard = async () => {
-      const result = await axios.get('http://localhost:3000/user/dashboard', {
-        params: { email: user.email },
-      })
+      try {
+        if (user) {
+          const result = await axios.get(
+            'http://localhost:3000/user/dashboard',
+            {
+              params: { email: user.email },
+            }
+          )
 
-      if (result.data) {
-        dispatch({ type: 'UPDATE_USER', payload: result.data })
+          if (result.data) {
+            dispatch({ type: 'UPDATE_USER', payload: result.data })
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
       }
     }
+    setIsLoading(true)
     fetchUserDashboard()
   }, [])
 
@@ -54,8 +68,10 @@ const useDashboard = () => {
     submit,
     manageFavorites,
     favoriteCocktails,
-    userCocktails: user.userCocktails,
+    userCocktails: user?.userCocktails || [],
     user,
+    isLoading,
+    Spinner,
   }
 }
 

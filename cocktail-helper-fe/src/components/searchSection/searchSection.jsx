@@ -1,4 +1,5 @@
-import { Row, Col, Form, FormGroup } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
+import Form from '../form/form'
 import styles from './searchSection.module.css'
 
 const SearchSection = ({ values, onChange, children }) => {
@@ -7,16 +8,14 @@ const SearchSection = ({ values, onChange, children }) => {
       <Col>
         <h2>Search Cocktails</h2>
         <Form>
-          <FormGroup className="d-flex gap-2">
-            <Form.Control
-              className={styles['search-input']}
-              type="text"
-              placeholder="Begin your search"
-              name="search"
-              value={values.search}
-              onChange={onChange}
-            />
-          </FormGroup>
+          <Form.Input
+            className={styles['search-input']}
+            name="search"
+            type="text"
+            value={values.search}
+            handleChange={onChange}
+            placeholder="Begin your search"
+          />
           {children}
         </Form>
       </Col>
