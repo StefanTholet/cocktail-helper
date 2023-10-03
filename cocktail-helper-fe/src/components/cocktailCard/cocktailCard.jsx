@@ -15,26 +15,16 @@ const CocktailCard = ({ data, user, manageFavorites }) => {
           <Card.Action value={'See more...'}>See more...</Card.Action>
           {user ? (
             <Card.Action
-              variant={
-                user?.favorites?.includes(data.idDrink) ? 'danger' : 'success'
-              }
-              value={
-                user?.favorites?.includes(data.idDrink)
-                  ? 'Remove favorite'
-                  : 'Add to favorites'
-              }
+              variant={data.isFavorite ? 'danger' : 'success'}
+              value={data.isFavorite ? 'Remove favorite' : 'Add to favorites'}
               clickHandler={() =>
                 manageFavorites(
                   data.idDrink,
-                  !user?.favorites?.includes(data.idDrink)
-                    ? 'add-favorite'
-                    : 'remove-favorite'
+                  !data.isFavorite ? 'add-favorite' : 'remove-favorite'
                 )
               }
             >
-              {!user?.favorites?.includes(data.idDrink)
-                ? 'Add favorite'
-                : 'Remove favorite'}{' '}
+              {!data.isFavorite ? 'Add favorite' : 'Remove favorite'}{' '}
             </Card.Action>
           ) : null}
         </div>

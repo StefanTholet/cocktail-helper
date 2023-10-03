@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import SearchSection from '../../components/searchSection/searchSection'
 import SearchResults from '../../components/searchResults/searchResults'
 import CocktailCard from '../../components/cocktailCard/cocktailCard'
@@ -8,16 +9,22 @@ import useForm from '../../hooks/useForm'
 import useThrottleFetch from '../../hooks/useThrottleFetch'
 import useAuthContext from '../../hooks/useAuthContext'
 import useManageFavorites from '../../hooks/useManageFavorites'
+import { addIsFavoriteProp } from '../../../utils/favoritesUtils'
 import { SEARCH_INITIAL_STATE, RADIO_INPUTS } from './homeConstants'
 
 const Home = () => {
   const { values, onChange } = useForm(SEARCH_INITIAL_STATE)
   const { user } = useAuthContext()
-  const [searchResults, isLoading] = useThrottleFetch(
+  let [searchResults, isLoading] = useThrottleFetch(
     values,
     'http://localhost:3000/api/search'
   )
   const manageFavorites = useManageFavorites()
+
+  const modifiedResults = useMemo(
+    () => addIsFavoriteProp(searchResults, user.favorites),
+    [searchResults, user.favorites]
+  )
 
   return (
     <Row>
@@ -43,8 +50,8 @@ const Home = () => {
           <Spinner />
         ) : (
           <>
-            {searchResults
-              ? searchResults.map((data) => (
+            {modifiedResults
+              ? modifiedResults.map((data) => (
                   <div key={data.idDrink || data.idIngredient}>
                     {values.searchOption === 'searchIngredient' ? (
                       <Ingredient content={data.strDescription} />
