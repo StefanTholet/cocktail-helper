@@ -22,7 +22,7 @@ const Dashboard = () => {
   const { values, onChange, onAdd, onRemove, ingredientInputs } =
     useAddCocktail(FORM_INITIAL_STATE, INGREDIENT_INPUTS_INITIAL_STATE, user)
   const manageFavorites = useManageFavorites()
-  const favoriteCocktails = user.favoriteCocktails
+  const favoriteCocktails = user?.favoriteCocktails
 
   return (
     <Row>
@@ -71,7 +71,7 @@ const Dashboard = () => {
             {favoriteCocktails.map((data) => (
               <CocktailCard
                 key={uuidv4()}
-                data={data[0]}
+                data={data}
                 user={user}
                 manageFavorites={manageFavorites}
               />

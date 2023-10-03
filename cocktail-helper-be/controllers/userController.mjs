@@ -69,6 +69,11 @@ export const getUser = async (req, res) => {
       res.status(401).json({ message: 'Authentication required' })
     }
     const user = await userService.getUser(email)
+    const favoriteCocktails = await userService.getFavoriteCocktails(
+      user.favorites
+    )
+    user.favoriteCocktails = favoriteCocktails || []
+
     res.json({ ...user })
   } catch (error) {
     res.status(500)
@@ -82,7 +87,10 @@ export const addFavorite = async (req, res) => {
       res.status(400).json({ message: 'Email and cocktailId are required' })
     }
     const user = await userService.addFavorite(email, cocktailId)
-
+    const favoriteCocktails = await userService.getFavoriteCocktails(
+      user.favorites
+    )
+    user.favoriteCocktails = favoriteCocktails || []
     res.json({ ...user })
   } catch (error) {
     res.status(500)
@@ -96,7 +104,10 @@ export const removeFavorite = async (req, res) => {
       res.status(400).json({ message: 'Email and cocktailId are required' })
     }
     const user = await userService.removeFavorite(email, cocktailId)
-
+    const favoriteCocktails = await userService.getFavoriteCocktails(
+      user.favorites
+    )
+    user.favoriteCocktails = favoriteCocktails || []
     res.json({ ...user })
   } catch (error) {
     res.status(500)

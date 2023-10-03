@@ -6,7 +6,7 @@ import {
   INGREDIENTS_LIST,
   ALCOHOLIC_FILTERS_LIST,
   SEARCH_TYPE_MAPPER,
-  GET_COCKTAIL_BY_ID
+  GET_COCKTAIL_BY_ID,
 } from '../constants/api.mjs'
 
 export const getCategories = async () => {
@@ -14,21 +14,20 @@ export const getCategories = async () => {
     axios.get(CATEGORY_LIST),
     axios.get(GLASSES_LIST),
     axios.get(INGREDIENTS_LIST),
-    axios.get(ALCOHOLIC_FILTERS_LIST)
+    axios.get(ALCOHOLIC_FILTERS_LIST),
   ])
 
   return [
     transformCategory('Categories', categories.data.drinks),
     transformCategory('Glasses', glasses.data.drinks),
     transformCategory('Ingredients', ingredients.data.drinks),
-    transformCategory('Alcoholic', alcoholic.data.drinks)
+    transformCategory('Alcoholic', alcoholic.data.drinks),
   ]
 }
 
 export const getCocktailById = async (id) => {
   const cocktail = await axios.get(`${GET_COCKTAIL_BY_ID}${id}`)
-
-  return cocktail
+  return cocktail.data.drinks[0]
 }
 
 export const getSearchResults = async (searchOption, search) => {

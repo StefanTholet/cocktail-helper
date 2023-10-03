@@ -15,6 +15,9 @@ const CocktailCard = ({ data, user, manageFavorites }) => {
           <Card.Action value={'See more...'}>See more...</Card.Action>
           {user ? (
             <Card.Action
+              variant={
+                user?.favorites?.includes(data.idDrink) ? 'danger' : 'success'
+              }
               value={
                 user?.favorites?.includes(data.idDrink)
                   ? 'Remove favorite'
