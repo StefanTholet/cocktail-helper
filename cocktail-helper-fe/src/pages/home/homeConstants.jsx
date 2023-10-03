@@ -12,3 +12,9 @@ export const RADIO_INPUTS = [
     value: 'searchIngredient',
   },
 ]
+
+export const SEARCH_SECTION_TITLES_MAPPER = {
+  name: 'Cocktails by name',
+  ingredient: 'Cocktails by ingredient',
+  searchIngredient: 'Ingredient details',
+}

@@ -9,8 +9,12 @@ import useForm from '../../hooks/useForm'
 import useThrottleFetch from '../../hooks/useThrottleFetch'
 import useAuthContext from '../../hooks/useAuthContext'
 import useManageFavorites from '../../hooks/useManageFavorites'
-import { addIsFavoriteProp } from '../../../utils/favoritesUtils'
-import { SEARCH_INITIAL_STATE, RADIO_INPUTS } from './homeConstants'
+import { addIsFavoriteProp } from '../../utils/favoritesUtils'
+import {
+  SEARCH_INITIAL_STATE,
+  RADIO_INPUTS,
+  SEARCH_SECTION_TITLES_MAPPER,
+} from './homeConstants'
 
 const Home = () => {
   const { values, onChange } = useForm(SEARCH_INITIAL_STATE)
@@ -45,7 +49,7 @@ const Home = () => {
         </RadioBtn.Container>
       </SearchSection>
 
-      <SearchResults>
+      <SearchResults title={SEARCH_SECTION_TITLES_MAPPER[values.searchOption]}>
         {isLoading ? (
           <Spinner />
         ) : (

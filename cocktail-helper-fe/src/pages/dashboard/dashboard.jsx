@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Row, Col, Button } from 'react-bootstrap'
 import Toggler from '../../components/toggler/toggler'
@@ -8,6 +8,7 @@ import Form from '../../components/form/form'
 import useAuthContext from '../../hooks/useAuthContext'
 import useAddCocktail from '../../hooks/useAddCocktail'
 import useManageFavorites from '../../hooks/useManageFavorites'
+
 import {
   FORM_DEFAULT_INPUTS,
   FORM_INITIAL_STATE,
@@ -21,8 +22,17 @@ const Dashboard = () => {
   const { user } = useAuthContext()
   const { values, onChange, onAdd, onRemove, ingredientInputs } =
     useAddCocktail(FORM_INITIAL_STATE, INGREDIENT_INPUTS_INITIAL_STATE, user)
+
   const manageFavorites = useManageFavorites()
-  const favoriteCocktails = user?.favoriteCocktails
+
+  const favoriteCocktails = useMemo(
+    () =>
+      user?.favoriteCocktails?.map((x) => {
+        x.isFavorite = true
+        return x
+      }),
+    [user?.favoriteCocktails]
+  )
 
   return (
     <Row>
@@ -67,7 +77,7 @@ const Dashboard = () => {
           <Form.Submit name="Submit" className="mt-4" />
         </Form>
         {favoriteCocktails ? (
-          <SearchResults>
+          <SearchResults title="Your favorites">
             {favoriteCocktails.map((data) => (
               <CocktailCard
                 key={uuidv4()}
