@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
-import axios from 'axios'
+import axiosInstance from '../../axiosInstance/axiosInstance'
 import { FORM_SUBMIT_MAPPER } from './authConstants'
 
 const useAuth = (location) => {
@@ -15,8 +15,8 @@ const useAuth = (location) => {
       setError(null)
       e.preventDefault()
 
-      const result = await axios.post(
-        `http://localhost:3000/user/${FORM_SUBMIT_MAPPER[location]}`,
+      const result = await axiosInstance.post(
+        `/user/${FORM_SUBMIT_MAPPER[location]}`,
         body
       )
       if (result.status === 200) {

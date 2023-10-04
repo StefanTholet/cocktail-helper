@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import axiosInstance from '../../axiosInstance/axiosInstance'
 
 const useGetCategories = () => {
   const [categories, setCategories] = useState(null)
@@ -7,7 +7,7 @@ const useGetCategories = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get('http://localhost:3000/api/categories')
+        const result = await axiosInstance.get('/api/categories')
         if (result.data) {
           setCategories(result.data)
         }

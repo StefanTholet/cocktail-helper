@@ -1,8 +1,10 @@
-import axios from 'axios'
+import axiosInstance from '../axiosInstance/axiosInstance'
+import { useNavigate } from 'react-router-dom'
 import useAuthContext from './useAuthContext'
 
 const useManageFavorites = () => {
   const { user, dispatch } = useAuthContext()
+  const navigate = useNavigate()
 
   const manageFavorites = async (cocktailId, url) => {
     try {
@@ -10,15 +12,23 @@ const useManageFavorites = () => {
         return
       }
 
-      const result = await axios.post(`http://localhost:3000/user/${url}`, {
-        email: user.email,
-        cocktailId,
-      })
+      const result = await axiosInstance.post(
+        `/user/${url}`,
+        {
+          email: user.email,
+          cocktailId
+        },
+        { headers: { Authorization: `Bearer ${user?.token}` } }
+      )
       if (result.status === 200) {
         dispatch({ type: 'UPDATE_USER', payload: result.data })
       }
     } catch (error) {
       console.log(error)
+      if (error.response.status === 401) {
+        localStorage.removeItem('user')
+        navigate('/login')
+      }
     }
   }
 

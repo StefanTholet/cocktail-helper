@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import useLoader from './useLoader'
-import axios from 'axios'
+import axiosInstance from '../axiosInstance/axiosInstance'
 
-const useFetchSearch = (body, url) => {
+const useThrottleSearch = (body, url) => {
   const [res, setRes] = useState(null)
   const [throttleTimeout, setThrottleTimeout] = useState(null)
   const { isLoading, setIsLoading, Spinner } = useLoader(false)
 
   const fetchSearch = async () => {
     try {
-      const result = await axios.get(url, {
-        params: body,
+      const result = await axiosInstance.get(url, {
+        params: body
       })
       if (!result.data) {
         setRes(null)
@@ -45,4 +45,4 @@ const useFetchSearch = (body, url) => {
   return [res, isLoading, Spinner]
 }
 
-export default useFetchSearch
+export default useThrottleSearch

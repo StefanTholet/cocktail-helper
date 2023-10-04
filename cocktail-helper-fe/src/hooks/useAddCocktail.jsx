@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import axiosInstance from '../axiosInstance/axiosInstance'
 import { v4 as uuidv4 } from 'uuid'
 import useForm from './useForm'
 
@@ -23,7 +23,7 @@ const useAddCocktail = (
 
     setIngredientInputs((state) => [
       ...state,
-      { name: valuePropName, label: `Add ingredient`, id },
+      { name: valuePropName, label: `Add ingredient`, id }
     ])
   }
 
@@ -66,10 +66,18 @@ const useAddCocktail = (
       }
     }
 
-    const result = await axios.post('http://localhost:3000/cocktails/add', {
-      ...formValues,
-      email: user.email,
-    })
+    const result = await axiosInstance.post(
+      '/cocktails/add',
+      {
+        ...formValues,
+        email: user.email
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      }
+    )
 
     if (result.data) {
       dispatch({ type: 'UPDATE_USER', payload: result.data })
