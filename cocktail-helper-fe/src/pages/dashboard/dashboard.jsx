@@ -24,7 +24,7 @@ const Dashboard = () => {
     userCocktails,
     user,
     isLoading,
-    Spinner,
+    Spinner
   } = useDashboard()
 
   return (
@@ -87,7 +87,7 @@ const Dashboard = () => {
             ) : (
               <SearchResults title="Add some cocktails!" />
             )}
-            {favoriteCocktails ? (
+            {favoriteCocktails && favoriteCocktails.length > 0 ? (
               <SearchResults title="Your favorites">
                 {favoriteCocktails.map((data) => (
                   <CocktailCard

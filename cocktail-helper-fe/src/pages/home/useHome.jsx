@@ -10,7 +10,7 @@ import { SEARCH_INITIAL_STATE } from './homeConstants'
 const useHome = () => {
   const { values, onChange } = useForm(SEARCH_INITIAL_STATE)
   const { user } = useAuthContext()
-  let [searchResults, isLoading] = useThrottleFetch(values, '/search')
+  let [searchResults, isLoading] = useThrottleFetch(values, '/api/search')
   const manageFavorites = useManageFavorites()
 
   const modifiedResults = useMemo(
